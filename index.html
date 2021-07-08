@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+        <!-- <link rel="stylesheet" href="index.css" /> -->
+        <title>Solana WEB3</title>
+    </head>
+    <body>
+
+        <header>
+            <h1>DevNet Account Balance: <span id="balance"></span></h1>
+        </header>
+
+        <script>
+            console.log(solanaWeb3.clusterApiUrl());
+            let connection = new solanaWeb3.Connection('https://api.devnet.solana.com');
+            let pKey = new solanaWeb3.PublicKey('YOUR__ACCOUNT__ADDRESS');
+            let toSolanaBalance = 0;
+            let lamports = 0;
+            console.log(pKey);
+            //Get Balance of your account address
+            connection.getBalance(pKey)
+            .then(res => {
+                console.log(res);
+                lamports = res;
+                toSolanaBalance = lamports * 0.000000001;
+                console.log(toSolanaBalance);
+                document.getElementById("balance").innerText = toSolanaBalance + ' SOL';
+            })
+            .catch(err => console.log(err));
+        </script>
+    </body>
+</html>
